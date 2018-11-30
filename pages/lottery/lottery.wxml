@@ -1,0 +1,40 @@
+<!--pages/lottery/lottery.wxml-->
+<view class='content'>
+  <view class='title'>
+    <image class='title-image' src='../images/title.png'></image>
+  </view>
+
+  <view class="container-out">
+    <view class="circle" wx:for="{{circleList}}" style="top:{{item.topCircle}}rpx;left:{{item.leftCircle}}rpx;background-color: {{(index%2==0)?colorCircleFirst:colorCircleSecond}};"></view>
+    <view class="container-in">
+      <view class="content-out" wx:for="{{awardList}}" style="top:{{item.topAward}}rpx;left:{{item.leftAward}}rpx;background-color: {{(index==indexSelect)?colorAwardSelect:colorAwardDefault}};">
+        <image class="award-image" src="{{item.imageAward}}"></image>
+      </view>
+      <view class="start-btn" bindtap="startGame" style=" background-color:{{isRunning?'#e7930a':'#ffe400'}}">START</view>
+    </view>
+    <!--弹窗-->
+    <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+    <view class="modal-dialog" wx:if="{{showModal}}">
+      <view class="modal-title">恭喜你！！</view>
+      <view class="modal-content">
+        <view class='content-text'>
+          您抽中了
+          <span style='color:red'>{{prize}}!</span>
+          <view>请输入手机号进行领取！</view>
+          <view>(如未领取视为主动放弃不予补偿)</view>
+        </view>
+        <view class="modal-input">
+          <input placeholder-class="input-holder" type="number" maxlength="11" bindinput="inputChange" class="input" placeholder="请输入手机号"></input>
+        </view>
+      </view>
+      <view class="modal-footer">
+        <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+        <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+      </view>
+    </view>
+
+  </view>
+  <view class='home-view'>
+  <button class='home-btn' bindtap="toHome" type="primary">返回首页</button>
+  </view>
+</view>

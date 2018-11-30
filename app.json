@@ -1,0 +1,25 @@
+{
+  "pages": [
+    "pages/login/login",
+    "pages/lottery/lottery",
+    "pages/service/service",
+    "pages/secne/secne",
+    "pages/query/query",
+    "pages/msg/msg",
+    "pages/home/home",
+    "pages/order/order",
+    "pages/cart/cart",
+    "pages/index/index",
+    "pages/remark/remark"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f2f2f2",
+    "navigationBarBackgroundColor": "#26A2FF",
+    "navigationBarTitleText": "馋猫点餐",
+    "navigationBarTextStyle": "white"
+  },
+  "navigateToMiniProgramAppIdList": [
+    "wx5ebdd98c258f01a0"
+  ]
+}

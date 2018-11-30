@@ -1,0 +1,12 @@
+<!--pages/query/query.wxml-->
+<view class='container'>
+  <view class='title'>
+   <view class="modal-input">
+          <input placeholder-class="input-holder" type="number" maxlength="11" bindinput="inputChange" class="input" placeholder="请输入手机号"></input>
+        </view>
+   <button class='query-btn' bindtap='query'>查询</button>
+  </view>
+  <view class='detail' wx:if="{{detail}}">
+    <view class='detail-text'>恭喜您！获得{{detail}}</view>
+  </view>
+</view>

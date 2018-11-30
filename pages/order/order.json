@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "订单",
+  "usingComponents": {
+    "i-tag": "../../dist/tag/index",
+    "i-input": "../../dist/input/index",
+    "i-button": "../../dist/button/index"
+  }
+}

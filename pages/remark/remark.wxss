@@ -1,0 +1,55 @@
+
+/* pages/remark/remark.wxss */
+
+page {
+  width: 100%;
+  height: 100%;
+  background: #eee;
+}
+.container{
+  align-items: center;
+  text-align: center
+}
+
+.remark-text {
+  width: 700rpx;
+  height: 200rpx;
+  background-color: #fafafa;
+  border: 5rpx solid #ddd;
+  margin-top: 50rpx;
+}
+
+.tag {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: space-between;
+  padding-top: 42rpx;
+  padding-left: 60rpx;
+}
+
+.item{
+  width: 25%;
+  align-items: center;
+  display: block;
+}
+
+.i-tag{
+  width: 100rpx;
+  height: 60rpx;
+  text-align: center;
+  font-size: 30rpx;
+}
+
+.submit-btn{
+  width: 345rpx;
+  height: 80rpx;
+  background-color: #1495E7;
+  text-align: center;
+  line-height: 80rpx;
+  color: white;
+  font-size: 34rpx;
+  margin-top: 50rpx;
+}
+

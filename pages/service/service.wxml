@@ -1,0 +1,20 @@
+<!--pages/service/service.wxml-->
+<view class='container'>
+  <view class='tag-type'>服务类型:</view>
+  <view class='tag'>
+    <block wx:for="{{tags}}" wx:key="{{index}}">
+      <view class='item'>
+        <i-tag i-class="i-tag" bindchange="onChange" checkable="{{true}}" name="{{index}}" color="{{item.color}}" checked="{{item.checked}}" type="border" style="margin-right:5px;" data-name="{{item.name}}" data-id="{{item.id}}">
+          {{item.name}}
+        </i-tag>
+      </view>
+    </block>
+  </view>
+  <view class='tag-type'>服务内容:</view>
+  <form bindsubmit='submit'>
+    <textarea class='remark-text' bindblur='bindTextAreaBlur' bindinput='bindInput' value='{{description}}' focus="{{focus}}"></textarea>
+
+
+    <button class='submit-btn' form-type='submit'>提交</button>
+  </form>
+</view>

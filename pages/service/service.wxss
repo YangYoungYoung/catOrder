@@ -1,0 +1,62 @@
+/* pages/service/service.wxss */
+
+/* pages/remark/remark.wxss */
+
+page {
+  width: 100%;
+  height: 100%;
+  background: #eee;
+}
+.container{
+  align-items: center;
+  text-align: center
+}
+
+.tag-type{
+  width: 100%;
+  font-size: 32rpx;
+  text-align: left;
+  margin-left: 30rpx;
+  padding-top: 40rpx;
+  color: #28323b;
+}
+.remark-text {
+  width: 700rpx;
+  height: 200rpx;
+  background-color: #fafafa;
+  border: 5rpx solid #ddd;
+  margin-top: 20rpx;
+}
+
+.tag {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  /* justify-content: space-between; */
+}
+
+.item{
+  width: 33%;
+  align-items: center;
+  display: block;
+}
+
+.i-tag{
+  width: 120rpx;
+  height: 70rpx;
+  text-align: center;
+  font-size: 40rpx;
+}
+
+.submit-btn{
+  width: 345rpx;
+  height: 80rpx;
+  background-color: #1495E7;
+  text-align: center;
+  line-height: 80rpx;
+  color: white;
+  font-size: 34rpx;
+  margin-top: 50rpx;
+}
+

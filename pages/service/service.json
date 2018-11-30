@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "呼叫服务",
+  "usingComponents": {
+    "i-tag": "../../dist/tag/index"
+  }
+}

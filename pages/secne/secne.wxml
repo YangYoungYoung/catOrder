@@ -1,0 +1,10 @@
+<!--pages/secne/secne.wxml-->
+<view class='container'>
+  <view class='list'>
+    <block wx:for="{{msg}}" wx:key="item">
+      <view class='list-item'>
+        <image class='item-image' src='{{item.logo_id}}'mode="scaleToFill"></image>
+      </view>
+    </block>
+  </view>
+</view>

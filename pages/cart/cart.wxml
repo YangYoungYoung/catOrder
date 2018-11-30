@@ -1,0 +1,32 @@
+<import src="../template-cart/template-cart.wxml" />
+
+<view class="container">
+  <template is="{{goodsList.list.length > 0 ? 'cart-goods-list' : 'no-goods'}}" data="{{...goodsList}}"></template>
+
+  <!-- 添加弹窗 -->
+  <!--弹窗-->
+  <view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+  <view class="modal-dialog" wx:if="{{showModal}}">
+    <view class="modal-title">口味</view>
+    <view class="modal-content">
+      <view class='tag-view'>
+        <block wx:for="{{tags}}" wx:key="{{index}}">
+          <view class='item'>
+            <i-tag i-class="i-tag" bindchange="onChange" checkable="{{true}}" name="{{index}}" color="{{item.color}}" checked="{{item.checked}}" type="border" style="margin-right:5px;" data-name="{{item.name}}">
+              {{item.name}}
+            </i-tag>
+          </view>
+
+        </block>
+      </view>
+
+      <view class="modal-input">
+        <input placeholder-class="input-holder" type="text" maxlength="10" bindinput="inputChange" class="input"  value='{{text}}'></input>
+      </view>
+    </view>
+    <view class="modal-footer">
+      <view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+      <view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+    </view>
+  </view>
+</view>
