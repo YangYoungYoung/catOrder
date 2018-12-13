@@ -26,7 +26,7 @@ Page({
   query: function() {
     var that = this;
     var shopId = wx.getStorageSync("shopId");
-    let url = "/api/weiXin/lotteryDetail"
+    let url = "api/weiXin/lotteryDetail"
     var phone = that.data.phone;
     if(phone.length<11){
       common.showTip("请输入正确手机号","loading");
@@ -45,7 +45,7 @@ Page({
 
       if (res.data.code == 200) {
           var msg = res.data.msg;
-        if(msg==null){
+        if(msg.length<1){
           common.showTip("暂无数据","loading");
           return;
         }

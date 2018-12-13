@@ -55,6 +55,14 @@ Page({
     })
   },
 
+  bindInput: function (e) {
+    console.log(e.detail.value);
+
+    this.setData({
+      text: e.detail.value,
+    })
+  },
+
   // onChange(event) {
   //   const detail = event.detail;
 

@@ -1,6 +1,6 @@
 <!--pages/remark/remark.wxml-->
 <view class='container'>
-  <textarea class='remark-text' bindblur='bindTextAreaBlur' value='{{text}}'></textarea>
+  <!-- <textarea class='remark-text' bindblur='bindTextAreaBlur' value='{{text}}'></textarea> -->
 
   <!-- <view class='tag'>
     <block wx:for="{{tags}}" wx:key="{{index}}">
@@ -12,5 +12,10 @@
 
     </block>
   </view> -->
-  <button class='submit-btn' bindtap='submit'>提交</button>
+  <!-- <button class='submit-btn' bindtap='submit'>提交</button> -->
+
+  <form bindsubmit='submit'>
+    <textarea class='remark-text' bindblur='bindTextAreaBlur' bindinput='bindInput' value='{{description}}' focus="{{focus}}"></textarea>
+    <button class='submit-btn' form-type='submit'>提交</button>
+  </form>
 </view>

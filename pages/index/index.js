@@ -33,14 +33,14 @@ Page({
     var name = this.data.goods[parentIndex].productList[index].name;
     var obj = {
       price: price,
-      num: num,
+      number: num,
       mark: mark,
       name: name,
       index: index,
       parentIndex: parentIndex
     };
     var carArray1 = this.data.carArray.filter(item => item.mark != mark);
-    carArray1.push(obj);
+    // carArray1.push(obj);
     console.log(carArray1);
     this.setData({
       carArray: carArray1,
@@ -100,7 +100,7 @@ Page({
       index: index,
       active: true,
       parentIndex: parentIndex,
-      
+
     };
     var carArray1 = this.data.carArray.filter(item => item.mark != mark)
     carArray1.push(detailArray)
@@ -138,9 +138,13 @@ Page({
     var carArray = this.data.carArray;
     var totalPrice = 0;
     var totalCount = 0;
-    for (var i = 0; i < carArray.length; i++) {
-      totalPrice += carArray[i].price * carArray[i].number;
-      totalCount += carArray[i].number
+    
+    if (carArray.length > 0) {
+      for (var i = 0; i < carArray.length; i++) {
+        console.log("=========" + carArray[i].number);
+        totalPrice += carArray[i].price * carArray[i].number;
+        totalCount += parseInt(carArray[i].number);  
+      }
     }
     this.setData({
       totalPrice: totalPrice,
@@ -194,7 +198,7 @@ Page({
     var shopId = wx.getStorageSync("shopId");
     let url = "api/weiXin/getProductList"
     var params = {
-      shopId: 10029
+      shopId: shopId
     }
     let method = "GET";
 
@@ -207,7 +211,7 @@ Page({
       if (res.data.code == 200) {
         var goods = res.data.msg;
         that.setData({
-          goods : goods
+          goods: goods
         })
       }
 
@@ -228,7 +232,12 @@ Page({
   onShow: function() {
     // 页面显示
     var that = this;
-    var carArray1 = wx.getStorageSync('cartInfo');
+    var carArray1 = wx.getStorageSync('cartResult');
+    // that.setData({
+    //   carArray: carArray1,
+    // })
+    // that.onLoad();
+    //   that.calTotalPrice();
     if (carArray1.length > 0) {
 
       this.setData({
@@ -237,6 +246,13 @@ Page({
       })
       that.calTotalPrice();
     }
+    // else{
+    //   this.setData({
+    //     carArray: carArray1
+    //   })
+    //   // that.onLoad();
+    //   that.calTotalPrice();
+    // }
   },
   onHide: function() {
     // 页面隐藏

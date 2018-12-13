@@ -28,7 +28,8 @@ Page({
 
   onShow: function() {
     let that = this
-    var order_id = "25767795778125825";
+    // var order_id = "25717603011921208";
+    var order_id = wx.getStorageSync('orderId');
     let url = "api/orders/" + order_id;
     var params = {
       // code: app.globalData.code
@@ -40,53 +41,58 @@ Page({
       }),
       network.POST(url, params, method).then((res) => {
         wx.hideLoading();
-        // console.log("这里的结果是：" + res.data.msg[0].loi[0].p.name); //正确返回结果
-        var loi = res.data.msg[0].loi;
-        // var totalPrice = res.data.msg[0].real_pay;
-        that.getOrderPrice();
-        console.log("当前总价为：" + that.data.totalPrice);
-        if (res.data.msg[0].description) {
-          that.setData({
-            description: res.data.msg[0].description
-          })
-        }
-        that.setData({
-          loi: loi
-        })
-        var quantity = 0;
-        var status = '';
-        for (var i = 0; i < loi.length; i++) {
+        if (res.data.msg != null || res.data.msg.length > 0) {
 
-          quantity += loi[i].quantity;
-          switch (loi[i].status_id) {
-            case 0:
-              status = '待接单';
-              break;
-            case 1:
-              status = '未开做';
-              break;
-            case 2:
-              status = '已开做';
-              break;
-            case 3:
-              status = '已上菜';
-              break;
-            case 4:
-              status = '已结算';
-              break;
-            case 5:
-              status = '已退单';
-              break;
-            case 6:
-              status = '退菜';
-              break;
+          // console.log("这里的结果是：" + res.data.msg[0].loi[0].p.name); //正确返回结果
+          var loi = res.data.msg[0].loi;
+          // var totalPrice = res.data.msg[0].real_pay;
+          that.getOrderPrice();
+          console.log("当前总价为：" + that.data.totalPrice);
+          if (res.data.msg[0].description) {
+            that.setData({
+              description: res.data.msg[0].description
+            })
           }
+          that.setData({
+            loi: loi
+          })
+          var quantity = 0;
+          var status = '';
+          for (var i = 0; i < loi.length; i++) {
+
+            quantity += loi[i].quantity;
+            switch (loi[i].status_id) {
+              case 0:
+                status = '待接单';
+                break;
+              case 1:
+                status = '未开做';
+                break;
+              case 2:
+                status = '已开做';
+                break;
+              case 3:
+                status = '已上菜';
+                break;
+              case 4:
+                status = '已结算';
+                break;
+              case 5:
+                status = '已退单';
+                break;
+              case 6:
+                status = '退菜';
+                break;
+            }
+          }
+          console.log("一共多少道菜：" + quantity);
+          that.setData({
+            status: status,
+            quantity: quantity
+          })
+        } else {
+          common.showTip("当前没有数据", "loading");
         }
-        console.log("一共多少道菜：" + quantity);
-        that.setData({
-          status: status,
-          quantity: quantity
-        })
       }).catch((errMsg) => {
         wx.hideLoading();
         console.log(errMsg); //错误提示信息
@@ -175,7 +181,7 @@ Page({
 
           //是会员，获取会员价格进行支付
           that.getOrderPrice();
-          if(that.data.totalPrice>0){
+          if (that.data.totalPrice > 0) {
             that.payOrder();
           }
         } else {
@@ -224,14 +230,15 @@ Page({
     var money = that.data.totalPrice * 100;
 
     var openId = wx.getStorageSync("openId")
-    var order_id = "25767795778125825";
+    // var order_id = "25767795778125825";
+    var order_id = wx.getStorageSync("orderId");
     console.log("当前的订单总价是：" + money);
     wx.request({
       url: 'https://weixin.cmdd.tech/weixin/getRepayId',
       data: {
-        appNum:1,
+        appNum: 1,
         openId: openId,
-        money:1
+        money: 1
 
       },
       header: { //请求头
@@ -333,15 +340,15 @@ Page({
     let method = "POST"
     var params = {
       description: money,
-        order_id: order_id,
-        service_type:"3",
+      order_id: order_id,
+      service_type: "3",
     }
     wx.showLoading({
-      title: '加载中...',
-    }),
+        title: '加载中...',
+      }),
       network.POST(url, params, method).then((res) => {
         wx.hideLoading();
-        console.log("支付回调："+res.data);
+        console.log("支付回调：" + res.data);
         if (res.data.code == 200) {
           // wx.showToast({
           //   title: '感谢使用',
@@ -371,8 +378,8 @@ Page({
   getOrderPrice() {
     var that = this;
     var phone = that.data.phone;
-    // var orderId = wx.getStorageSync("order_id");
-    var orderId = "25767795778125825";
+    var orderId = wx.getStorageSync("orderId");
+    // var orderId = "25767795778125825";
     let url = "/api/weiXin/payableMoney"
     let method = "GET"
     var params = {

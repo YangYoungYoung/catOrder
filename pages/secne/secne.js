@@ -15,8 +15,9 @@ Page({
    */
   onLoad: function(options) {
     var that = this;
-    // var shopId = wx.getStorageSync("shopId");
-    var shopId = 10041;
+    var shopId = wx.getStorageSync("shopId");
+    console.log('shopId is:',shopId)
+    // var shopId = 10041;
     let url = "api/shop/" + shopId + "/kitchen/list"
 
     var params = {

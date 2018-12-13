@@ -4,9 +4,7 @@
     <!--广告banner-->
     <block wx:for="{{ banner }}" wx:key="item">
       <swiper-item>
-        <navigator url="/pages/good/index?id={{item.id}}">
           <image src="{{ item.path }}" class="slide-image" mode='widthFix' />
-        </navigator>
       </swiper-item>
     </block>
   </swiper>

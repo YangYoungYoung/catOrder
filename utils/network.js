@@ -1,7 +1,8 @@
 //封装的HTTPS的请求类
 const app = getApp()
 
-var API_URL = 'https://chanmao.oicp.vip/';
+var API_URL = 'https://api.cmdd.tech/';
+// var API_URL = 'https://chanmao.oicp.vip/';
 var defaulContentType = 'application/x-www-form-urlencoded; charset=UTF-8';
 
 function POST(url, params, method, contenTTypeCust) {

@@ -9,7 +9,8 @@ Page({
    */
   data: {
     //判断小程序的API，回调，参数，组件等是否在当前版本可用。
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    diningTableId:''
   },
 
   /**
@@ -17,6 +18,20 @@ Page({
    */
   onLoad: function(options) {
     var that = this
+    // if (options.scene!=undefined){
+      
+    //   var scene = decodeURIComponent(options.scene);
+    //   console.log("scene is ", scene);
+    //   var dingTableId = scene.dingTableId;
+    //   console.log("dingTableId is", dingTableId);
+    //   that.setData({
+    //     diningTableId: dingTableId
+    //   })
+    // }
+    // else{
+    //   common.showTip('请扫码使用本程序','loading');
+    //   return;
+    // }
     // 登录
     wx.login({
       success: res => {
@@ -110,7 +125,7 @@ Page({
         title: '加载中...',
       }),
       wx.request({
-      url: 'https://weixin.cmdd.tech//weixin/dianCan/getOpenId',
+      url: 'https://weixin.cmdd.tech/weixin/dianCan/getOpenId',
         data: {
           code: app.globalData.code
         },
@@ -125,10 +140,15 @@ Page({
           // console.log("这里的结果是：" + res.data.openid); //正确返回结果
           if (res.data.openid != null) {
             wx.setStorageSync('openId', res.data.openid); // 单独存储openid
+            var diningTableId = that.data.dingTableId;
+            if(diningTableId!=''){
+
+            }
+            that.getOrder();
             // 只允许从相机扫码
-            wx.navigateTo({
-              url: '../home/home',
-            })
+            // wx.navigateTo({
+            //   url: '../home/home',
+            // })
             // wx.scanCode({
             //   onlyFromCamera: true,
             //   success: (res) => {
@@ -198,5 +218,47 @@ Page({
     //       duration: 1500,
     //     })
     //   });
+  },
+  //获取桌位订单
+  getOrder:function(){
+    var that = this;
+    let url = "api/weiXin/diningTableOrder";
+    // var diningTableId = that.data.diningTableId;
+    var diningTableId = '2576334196415131';
+    var params = {
+      diningTableId: diningTableId
+    }
+    let method = "GET";
+    wx.showLoading({
+      title: '加载中...',
+    })
+    network.POST(url, params, method).then((res) => {
+      wx.hideLoading();
+      console.log("返回值是：" + res.data.msg);
+      if (res.data.code == 200) {
+        if(res.data.msg){
+          var order = res.data.msg.order;
+          console.log("order is:",order);
+          var order_id = order.id;
+          wx.setStorageSync("orderId", order_id);
+          console.log('order_id is',order_id);
+          var shopId = order.shop_id;
+          wx.setStorageSync("shopId", shopId);
+          console.log('shopId is:',shopId);
+          wx.redirectTo({
+            url: '../home/home',
+          })
+        }
+      }
+
+    }).catch((errMsg) => {
+      wx.hideLoading();
+      console.log(errMsg); //错误提示信息
+      wx.showToast({
+        title: '网络错误',
+        icon: 'loading',
+        duration: 1500,
+      })
+    });
   }
 })

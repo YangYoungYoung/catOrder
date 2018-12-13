@@ -101,12 +101,12 @@ Page({
     })
     // that.bindTextAreaBlur();
     var service_type = Number(that.data.text);
-    // var order_id = wx.getStorageSync("order_id");
-    var order_id = "25767795778125825";
-    // var shop_id = wx.getStorageSync("shopId");
-    var shop_id = 10041;
+    var order_id = wx.getStorageSync("orderId");
+    // var order_id = "25767795778125825";
+    var shop_id = wx.getStorageSync("shopId");
+    // var shop_id = 10041;
     var description = that.data.description;
-    console.log("当前类型：" + service_type);
+    console.log("当前order_id：" + order_id);
     console.log("当前意见：" + description);
     if (service_type == null || service_type < 0 || service_type>4) {
       common.showTip('请选择服务类型', 'loading');

@@ -247,7 +247,7 @@ Page({
   },
   //数量加
   jiaBtnTap: function(e) {
-    console.log("youmeiyou ");
+    // console.log("youmeiyou ");
     var index = e.currentTarget.dataset.index;
     var list = this.data.goodsList.list;
     if (index !== "" && index != null) {
@@ -328,12 +328,12 @@ Page({
         } else {
           console.log("商品的ID是：" + shopList[i].category_id);
           //订单id是单独传过来的
-          var order_id = wx.getStorageSync("order_id");
+          var order_id = wx.getStorageSync("orderId");
           var temp = {
             category_id: shopList[i].category_id,
             description: shopList[i].description,
-            // order_id: order_id,
-            order_id: "25767795778125825",
+            order_id: order_id,
+            // order_id: "25717603011921208",
             product_id: shopList[i].product_id,
             quantity: shopList[i].number,
             status_id: 0
@@ -371,7 +371,7 @@ Page({
 
     var description = that.data.textAreaBlur;
     wx.request({
-      url: 'https://chanmao.oicp.vip/api/orderItemList',
+      url: 'https://api.cmdd.tech/api/orderItemList',
 
       data: {
         orderItemList,
@@ -421,6 +421,16 @@ Page({
    * 对话框取消按钮点击事件
    */
   onCancel: function() {
+    var that =this;
+    var tags = that.data.tags;
+    for (var i = 0; i < tags.length; i++) {
+      that.setData({
+        ['tags[' + i + '].checked']: false
+      })
+    }
+    that.setData({
+      text: ""
+    })
     this.hideModal();
   },
   /**
@@ -434,6 +444,16 @@ Page({
     list[index].description = that.data.text;
     console.log("当前口味为：" + list[index].description + "当前个数：" + index);
     wx.setStorageSync("cartResult", list);
+    //口味选项恢复，输入框清空
+    var tags = that.data.tags;
+    for(var i=0;i<tags.length;i++){
+      that.setData({
+        ['tags[' + i + '].checked']: false
+      })
+    }
+    that.setData({
+      text:""
+    })
   },
 
   //获取输入框里的值
@@ -450,7 +470,7 @@ Page({
     console.log("当前数量是" + list[index].number);
     this.setGoodsList(this.getSaveHide(), this.totalPrice(), this.allSelect(), this.noSelect(), list);
   },
-
+//添加备注
   onChange(event) {
     const detail = event.detail;
 

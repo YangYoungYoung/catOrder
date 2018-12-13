@@ -3,6 +3,6 @@
 
   <!--按钮-->
   <view class="loginBtnView">
-    <button class="loginBtn" open-type='getUserInfo' size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindgetuserinfo="bindGetUserInfo">扫码点餐</button>
+    <button class="loginBtn" open-type='getUserInfo' size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindgetuserinfo="bindGetUserInfo">点餐授权</button>
   </view>
 </view>
