@@ -16,7 +16,7 @@ Page({
   onLoad: function(options) {
     var that = this;
     var shopId = wx.getStorageSync("shopId");
-    console.log('shopId is:',shopId)
+    // console.log('shopId is:',shopId)
     // var shopId = 10041;
     let url = "api/shop/" + shopId + "/kitchen/list"
 
@@ -46,7 +46,7 @@ Page({
 
     }).catch((errMsg) => {
       wx.hideLoading();
-      console.log(errMsg); //错误提示信息
+      // console.log(errMsg); //错误提示信息
       wx.showToast({
         title: '网络错误',
         icon: 'loading',

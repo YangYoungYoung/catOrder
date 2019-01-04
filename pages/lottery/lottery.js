@@ -68,8 +68,8 @@ Page({
       return;
     }
     var prize = that.data.prize;
-    var shopId = "10041";
-    var orderId = "25767795778125825"
+    let shopId = wx.getStorageSync('shopId');
+    let orderId = wx.getStorageSync('orderId');
     let url = "api/weiXin/lotteryLog"
     var params = {
       shop_id: shopId,
@@ -77,14 +77,14 @@ Page({
       phone: phone,
       lottery_detail: prize
     }
-    let method = "POST";
+    let method = "PUT";
 
     wx.showLoading({
         title: '加载中...',
       }),
       network.POST(url, params, method).then((res) => {
         wx.hideLoading();
-        console.log("这里的结果是：" + res.data); //正确返回结果
+        // console.log("这里的结果是：" + res.data); //正确返回结果
         if (res.data.code == 200) {
           wx.setStorageSync("phone", phone);
           wx.showToast({
@@ -95,7 +95,7 @@ Page({
         }
       }).catch((errMsg) => {
         wx.hideLoading();
-        console.log(errMsg); //错误提示信息
+        // console.log(errMsg); //错误提示信息
         wx.showToast({
           title: '网络错误',
           icon: 'loading',
@@ -204,8 +204,9 @@ Page({
   onShow: function() {
     //获取抽奖信息
     let that = this;
-    var shopId = "10041";
-    var orderId = "25767795778125825"
+    let shopId = wx.getStorageSync('shopId');
+    let orderId = wx.getStorageSync('orderId');
+    // var orderId = "25767795778125825"
     let url = "api/weiXin/lottery"
     var params = {
       shopId: shopId,
@@ -217,7 +218,7 @@ Page({
       }),
       network.POST(url, params, method, header).then((res) => {
         wx.hideLoading();
-        console.log("这里的结果是：" + res.data); //正确返回结果
+        // console.log("这里的结果是：" + res.data); //正确返回结果
         if (res.data.code == 200) {
           if (res.data.msg != null) {
             levels = res.data.msg.levels;
@@ -226,7 +227,7 @@ Page({
             if (levels != 0) {
               levels += levels - 1;
             }
-            console.log("当前的levels是：" + levels);
+            // console.log("当前的levels是：" + levels);
             that.setData({
               prize: prize
             })
@@ -234,7 +235,7 @@ Page({
         }
       }).catch((errMsg) => {
         wx.hideLoading();
-        console.log(errMsg); //错误提示信息
+        // console.log(errMsg); //错误提示信息
         wx.showToast({
           title: '网络错误',
           icon: 'loading',
@@ -253,7 +254,7 @@ Page({
     var i = 0;
     var timer = setInterval(function() {
       indexSelect++;
-      console.log("当前是：" + indexSelect);
+      // console.log("当前是：" + indexSelect);
       //这里我只是简单粗暴用y=30*x+200函数做的处理.可根据自己的需求改变转盘速度
       i += 60;
       if (i > 1000 && indexSelect == levels) {
@@ -286,6 +287,11 @@ Page({
   toHome:function(){
     wx.redirectTo({
       url: '../home/home',
+    })
+  },
+  toQuery:function(){
+    wx.redirectTo({
+      url: '../query/query',
     })
   }
 })

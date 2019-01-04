@@ -1,6 +1,6 @@
 <!--pages/order/order.wxml-->
 <view class='container'>
-  <scroll-view class='scroll' scroll-y style="height:100%;" bindscrolltoupper="upper" bindscrolltolower="lower" bindscroll="scroll">
+  <scroll-view class='scroll' scroll-y style="height:100%;">
 
     <block wx:for="{{loi}}" wx:key="item.id">
       <view class='list-view'>

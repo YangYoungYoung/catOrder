@@ -2,7 +2,7 @@
 <view class="goods" wx:if="{{status==0||item.status==status}}">
   <view class="menu-wrapper">
     <scroll-view scroll-y="true" style="height: 450px;">
-      <view wx:for="{{goods}}" class="menu-item border-1px" bindtap="selectMenu" data-item-index="{{index}}">
+      <view wx:for="{{goods}}" wx:key='id' class="menu-item border-1px" bindtap="selectMenu" data-item-index="{{index}}">
         <view class="text">
           {{item.name}}
         </view>
@@ -10,9 +10,9 @@
     </scroll-view>
   </view>
   <scroll-view scroll-y="true"  scroll-into-view="{{toView}}" class="foods-wrapper">
-    <view wx:for="{{goods}}" class="food-list food-list-hook" wx:for-index="parentIndex">
+    <view wx:for="{{goods}}" wx:key='id' class="food-list food-list-hook" wx:for-index="parentIndex">
       <view id="order{{parentIndex}}" class="title">{{item.name}}</view>
-      <view wx:for="{{item.productList}}" class="food-item" wx:for-item="productList" data-food="{{productList}}">
+      <view wx:for="{{item.productList}}" wx:key='id' class="food-item" wx:for-item="productList" data-food="{{productList}}">
         <view class="icon">
           <image src="{{productList.icon}}" style="width: 57px;height: 57px"></image>
         </view>

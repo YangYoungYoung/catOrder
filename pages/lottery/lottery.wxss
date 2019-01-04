@@ -195,4 +195,6 @@ input-holder {
 .home-btn{
   width: 360rpx;
   font-size: 32rpx;
+  background-color: #2C9F67;
+  color: white;
 }

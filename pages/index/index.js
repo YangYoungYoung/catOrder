@@ -20,7 +20,7 @@ Page({
     this.setData({
       toView: 'order' + index.toString()
     })
-    console.log(this.data.toView);
+    // console.log(this.data.toView);
   },
   //移除商品
   decreaseCart: function(e) {
@@ -41,7 +41,7 @@ Page({
     };
     var carArray1 = this.data.carArray.filter(item => item.mark != mark);
     // carArray1.push(obj);
-    console.log(carArray1);
+    // console.log(carArray1);
     this.setData({
       carArray: carArray1,
       goods: this.data.goods
@@ -104,7 +104,7 @@ Page({
     };
     var carArray1 = this.data.carArray.filter(item => item.mark != mark)
     carArray1.push(detailArray)
-    console.log(carArray1);
+    // console.log(carArray1);
     this.setData({
       carArray: carArray1,
       goods: this.data.goods
@@ -138,12 +138,12 @@ Page({
     var carArray = this.data.carArray;
     var totalPrice = 0;
     var totalCount = 0;
-    
+
     if (carArray.length > 0) {
       for (var i = 0; i < carArray.length; i++) {
-        console.log("=========" + carArray[i].number);
+        // console.log("=========" + carArray[i].number);
         totalPrice += carArray[i].price * carArray[i].number;
-        totalCount += parseInt(carArray[i].number);  
+        totalCount += parseInt(carArray[i].number);
       }
     }
     this.setData({
@@ -207,7 +207,7 @@ Page({
     })
     network.POST(url, params, method).then((res) => {
       wx.hideLoading();
-      console.log("返回值是：" + res.data.msg);
+      // console.log("返回值是：" + res.data.msg);
       if (res.data.code == 200) {
         var goods = res.data.msg;
         that.setData({
@@ -217,7 +217,7 @@ Page({
 
     }).catch((errMsg) => {
       wx.hideLoading();
-      console.log(errMsg); //错误提示信息
+      // console.log(errMsg); //错误提示信息
       wx.showToast({
         title: '网络错误',
         icon: 'loading',
@@ -245,8 +245,8 @@ Page({
         goods: this.data.goods
       })
       that.calTotalPrice();
-    }
-    // else{
+    } 
+    // else {
     //   this.setData({
     //     carArray: carArray1
     //   })

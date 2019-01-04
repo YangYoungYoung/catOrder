@@ -33,7 +33,7 @@ Page({
       return;
     }
     var params = {
-      shopId: 10041,
+      shopId: shopId,
       phone: phone
     }
     let method = "GET";
@@ -65,7 +65,6 @@ Page({
 
     }).catch((errMsg) => {
       wx.hideLoading();
-      console.log(errMsg); //错误提示信息
       wx.showToast({
         title: '网络错误',
         icon: 'loading',

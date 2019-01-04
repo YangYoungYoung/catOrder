@@ -48,7 +48,7 @@ Page({
   },
 
   bindTextAreaBlur: function(e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
 
     this.setData({
       text: e.detail.value,
@@ -56,7 +56,7 @@ Page({
   },
 
   bindInput: function (e) {
-    console.log(e.detail.value);
+    // console.log(e.detail.value);
 
     this.setData({
       text: e.detail.value,
@@ -90,14 +90,14 @@ Page({
     var that = this;
     var feedBack = that.data.text;
     var shopId = wx.getStorageSync("shopId");
-    console.log("当前意见：" + feedBack);
-    let url = "api/feedBack"
+    // console.log("当前意见：" + feedBack);
+    let url = "api/order/feedBack"
     var params = {
       // code: app.globalData.code
       shopId:shopId,
       feedBack: feedBack
     }
-    let method = "GET";
+    let method = "PUT";
     wx.showLoading({
       title: '加载中...',
     })
@@ -109,7 +109,6 @@ Page({
       
     }).catch((errMsg) => {
       wx.hideLoading();
-      console.log(errMsg); //错误提示信息
       wx.showToast({
         title: '网络错误',
         icon: 'loading',

@@ -44,13 +44,17 @@ Page({
         if (res.data.msg != null || res.data.msg.length > 0) {
 
           // console.log("这里的结果是：" + res.data.msg[0].loi[0].p.name); //正确返回结果
-          var loi = res.data.msg[0].loi;
+          var loi = res.data.msg.loi;
+          if (loi.length == 0) {
+            common.showTip("当前没有数据", "loading");
+            return;
+          }
           // var totalPrice = res.data.msg[0].real_pay;
           that.getOrderPrice();
-          console.log("当前总价为：" + that.data.totalPrice);
-          if (res.data.msg[0].description) {
+          // console.log("当前总价为：" + that.data.totalPrice);
+          if (res.data.msg.openTableRemark) {
             that.setData({
-              description: res.data.msg[0].description
+              description: res.data.msg.openTableRemark
             })
           }
           that.setData({
@@ -85,17 +89,18 @@ Page({
                 break;
             }
           }
-          console.log("一共多少道菜：" + quantity);
+          // console.log("一共多少道菜：" + quantity);
           that.setData({
             status: status,
             quantity: quantity
           })
         } else {
           common.showTip("当前没有数据", "loading");
+          return;
         }
       }).catch((errMsg) => {
         wx.hideLoading();
-        console.log(errMsg); //错误提示信息
+        // console.log(errMsg); //错误提示信息
         wx.showToast({
           title: '网络错误',
           icon: 'loading',
@@ -173,7 +178,7 @@ Page({
       }),
       network.POST(url, params, method).then((res) => {
         wx.hideLoading();
-        console.log("会员登录返回值是：" + res.data);
+        // console.log("会员登录返回值是：" + res.data);
         var msg = res.data.msg;
         if (res.data.code == 200) {
           common.showTip(msg, "success");
@@ -190,7 +195,7 @@ Page({
 
       }).catch((errMsg) => {
         wx.hideLoading();
-        console.log(errMsg); //错误提示信息
+        // console.log(errMsg); //错误提示信息
         wx.showToast({
           title: '网络错误',
           icon: 'loading',
@@ -232,13 +237,13 @@ Page({
     var openId = wx.getStorageSync("openId")
     // var order_id = "25767795778125825";
     var order_id = wx.getStorageSync("orderId");
-    console.log("当前的订单总价是：" + money);
+    // console.log("当前的订单总价是：" + money);
     wx.request({
       url: 'https://weixin.cmdd.tech/weixin/getRepayId',
       data: {
         appNum: 1,
         openId: openId,
-        money: 1
+        money: money
 
       },
       header: { //请求头
@@ -248,7 +253,7 @@ Page({
 
       success: function(res) {
         wx.hideLoading();
-        console.log("支付的返回值是：" + res.data);
+        // console.log("支付的返回值是：" + res.data);
         wx.requestPayment({
           'timeStamp': res.data.timeStamp,
           'nonceStr': res.data.nonceStr,
@@ -266,7 +271,7 @@ Page({
             that.payRequest();
           },
           'fail': function(res) {
-            console.log("调起支付失败" + res.err_desc)
+            // console.log("调起支付失败" + res.err_desc)
             wx.showToast({
               title: "支付失败",
               duration: 1500
@@ -333,14 +338,14 @@ Page({
   //支付回调接口
   payRequest: function() {
     var that = this;
-    // var orderId = wx.getStorageSync("order_id");
-    var order_id = "25767795778125825";
+    var orderId = wx.getStorageSync("orderId");
+    // var order_id = "25767795778125825";
     var money = that.data.totalPrice;
     let url = "api/weiXin/paymentCallback"
     let method = "POST"
     var params = {
       description: money,
-      order_id: order_id,
+      order_id: orderId,
       service_type: "3",
     }
     wx.showLoading({
@@ -348,25 +353,16 @@ Page({
       }),
       network.POST(url, params, method).then((res) => {
         wx.hideLoading();
-        console.log("支付回调：" + res.data);
+        // console.log("支付回调：" + res.data);
         if (res.data.code == 200) {
-          // wx.showToast({
-          //   title: '感谢使用',
-          //   icon: 'success',
-          //   duration: 1500,
-          // })
           wx.navigateTo({
             url: '../msg/msg',
           })
-          // var msg = res.data.msg;
-          // that.setData({
-          //   totalPrice: msg
-          // })
         }
 
       }).catch((errMsg) => {
         wx.hideLoading();
-        console.log(errMsg); //错误提示信息
+        // console.log(errMsg); //错误提示信息
         wx.showToast({
           title: '网络错误',
           icon: 'loading',
@@ -400,7 +396,7 @@ Page({
 
       }).catch((errMsg) => {
         wx.hideLoading();
-        console.log(errMsg); //错误提示信息
+        // console.log(errMsg); //错误提示信息
         wx.showToast({
           title: '网络错误',
           icon: 'loading',

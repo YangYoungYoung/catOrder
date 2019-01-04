@@ -3,6 +3,11 @@
 
   <!--按钮-->
   <view class="loginBtnView">
-    <button class="loginBtn" open-type='getUserInfo' size="{{primarySize}}" loading="{{loading}}" plain="{{plain}}" disabled="{{disabled}}" bindgetuserinfo="bindGetUserInfo">点餐授权</button>
+    <block wx:if="{{isOpenTable}}">
+      <button class="loginBtn" open-type='getUserInfo' bindgetuserinfo="bindGetUserInfo">点餐授权</button>
+    </block>
+<block wx:else>
+      <button class="loginBtn" bindtap='getOrder'>开始点餐</button>
+    </block>
   </view>
 </view>

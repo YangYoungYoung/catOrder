@@ -2,6 +2,7 @@
   "pages": [
     "pages/login/login",
     "pages/lottery/lottery",
+    "pages/index/index",
     "pages/service/service",
     "pages/secne/secne",
     "pages/query/query",
@@ -9,7 +10,6 @@
     "pages/home/home",
     "pages/order/order",
     "pages/cart/cart",
-    "pages/index/index",
     "pages/remark/remark"
   ],
   "window": {
